@@ -14,6 +14,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
+Route::get('/todos', 'App\Http\Controllers\TodoController@index');
+Route::get('/todo/{id}', 'App\Http\Controllers\TodoController@show');
+Route::post('/todo', 'App\Http\Controllers\TodoController@store');
+Route::delete('/todo/{id}', 'App\Http\Controllers\TodoController@destroy');
+Route::patch('/todo/{todo}', 'App\Http\Controllers\TodoController@update');
