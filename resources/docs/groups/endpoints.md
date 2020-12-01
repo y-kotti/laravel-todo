@@ -10,14 +10,14 @@
 
 ```bash
 curl -X GET \
-    -G "http://localhost/api/todos" \
+    -G "http://localhost:8000/api/todos" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json"
 ```
 
 ```javascript
 const url = new URL(
-    "http://localhost/api/todos"
+    "http://localhost:8000/api/todos"
 );
 
 let headers = {
@@ -55,25 +55,25 @@ fetch(url, {
 </form>
 
 
-## api/todos
+## todoを登録する
 
 
-
+登録画面にて入力した情報をDBに登録する機能
 
 > Example request:
 
 ```bash
 curl -X POST \
-    "http://localhost/api/todos" \
+    "http://localhost:8000/api/todo" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
-    -d '{"name":"quis","note":"sapiente","boolean":"quod"}'
+    -d '{"title":"facilis","note":"quia","complete_todo":false}'
 
 ```
 
 ```javascript
 const url = new URL(
-    "http://localhost/api/todos"
+    "http://localhost:8000/api/todo"
 );
 
 let headers = {
@@ -82,9 +82,9 @@ let headers = {
 };
 
 let body = {
-    "name": "quis",
-    "note": "sapiente",
-    "boolean": "quod"
+    "title": "facilis",
+    "note": "quia",
+    "complete_todo": false
 }
 
 fetch(url, {
@@ -95,39 +95,192 @@ fetch(url, {
 ```
 
 
-<div id="execution-results-POSTapi-todos" hidden>
-    <blockquote>Received response<span id="execution-response-status-POSTapi-todos"></span>:</blockquote>
-    <pre class="json"><code id="execution-response-content-POSTapi-todos"></code></pre>
+<div id="execution-results-POSTapi-todo" hidden>
+    <blockquote>Received response<span id="execution-response-status-POSTapi-todo"></span>:</blockquote>
+    <pre class="json"><code id="execution-response-content-POSTapi-todo"></code></pre>
 </div>
-<div id="execution-error-POSTapi-todos" hidden>
+<div id="execution-error-POSTapi-todo" hidden>
     <blockquote>Request failed with error:</blockquote>
-    <pre><code id="execution-error-message-POSTapi-todos"></code></pre>
+    <pre><code id="execution-error-message-POSTapi-todo"></code></pre>
 </div>
-<form id="form-POSTapi-todos" data-method="POST" data-path="api/todos" data-authed="0" data-hasfiles="0" data-headers='{"Content-Type":"application\/json","Accept":"application\/json"}' onsubmit="event.preventDefault(); executeTryOut('POSTapi-todos', this);">
+<form id="form-POSTapi-todo" data-method="POST" data-path="api/todo" data-authed="0" data-hasfiles="0" data-headers='{"Content-Type":"application\/json","Accept":"application\/json"}' onsubmit="event.preventDefault(); executeTryOut('POSTapi-todo', this);">
 <h3>
     Request&nbsp;&nbsp;&nbsp;
-        <button type="button" style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;" id="btn-tryout-POSTapi-todos" onclick="tryItOut('POSTapi-todos');">Try it out ⚡</button>
-    <button type="button" style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;" id="btn-canceltryout-POSTapi-todos" onclick="cancelTryOut('POSTapi-todos');" hidden>Cancel</button>&nbsp;&nbsp;
-    <button type="submit" style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;" id="btn-executetryout-POSTapi-todos" hidden>Send Request 💥</button>
+        <button type="button" style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;" id="btn-tryout-POSTapi-todo" onclick="tryItOut('POSTapi-todo');">Try it out ⚡</button>
+    <button type="button" style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;" id="btn-canceltryout-POSTapi-todo" onclick="cancelTryOut('POSTapi-todo');" hidden>Cancel</button>&nbsp;&nbsp;
+    <button type="submit" style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;" id="btn-executetryout-POSTapi-todo" hidden>Send Request 💥</button>
     </h3>
 <p>
 <small class="badge badge-black">POST</small>
- <b><code>api/todos</code></b>
+ <b><code>api/todo</code></b>
 </p>
 <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
 <p>
-<b><code>name</code></b>&nbsp;&nbsp;<small>string</small>     <i>optional</i> &nbsp;
-<input type="text" name="name" data-endpoint="POSTapi-todos" data-component="body"  hidden>
+<b><code>title</code></b>&nbsp;&nbsp;<small>string</small>  &nbsp;
+<input type="text" name="title" data-endpoint="POSTapi-todo" data-component="body" required  hidden>
 <br>
-</p>
+Title of Todo</p>
 <p>
 <b><code>note</code></b>&nbsp;&nbsp;<small>string</small>     <i>optional</i> &nbsp;
-<input type="text" name="note" data-endpoint="POSTapi-todos" data-component="body"  hidden>
+<input type="text" name="note" data-endpoint="POSTapi-todo" data-component="body"  hidden>
 <br>
 </p>
 <p>
-<b><code>boolean</code></b>&nbsp;&nbsp;<small>complete-task</small>     <i>optional</i> &nbsp;
-<input type="text" name="boolean" data-endpoint="POSTapi-todos" data-component="body"  hidden>
+<b><code>complete_todo</code></b>&nbsp;&nbsp;<small>boolean</small>     <i>optional</i> &nbsp;
+<label data-endpoint="POSTapi-todo" hidden><input type="radio" name="complete_todo" value="true" data-endpoint="POSTapi-todo" data-component="body" ><code>true</code></label>
+<label data-endpoint="POSTapi-todo" hidden><input type="radio" name="complete_todo" value="false" data-endpoint="POSTapi-todo" data-component="body" ><code>false</code></label>
+<br>
+</p>
+
+</form>
+
+
+## api/todo/{id}
+
+
+
+
+> Example request:
+
+```bash
+curl -X DELETE \
+    "http://localhost:8000/api/todo/est" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json"
+```
+
+```javascript
+const url = new URL(
+    "http://localhost:8000/api/todo/est"
+);
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+
+fetch(url, {
+    method: "DELETE",
+    headers,
+}).then(response => response.json());
+```
+
+
+<div id="execution-results-DELETEapi-todo--id-" hidden>
+    <blockquote>Received response<span id="execution-response-status-DELETEapi-todo--id-"></span>:</blockquote>
+    <pre class="json"><code id="execution-response-content-DELETEapi-todo--id-"></code></pre>
+</div>
+<div id="execution-error-DELETEapi-todo--id-" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-DELETEapi-todo--id-"></code></pre>
+</div>
+<form id="form-DELETEapi-todo--id-" data-method="DELETE" data-path="api/todo/{id}" data-authed="0" data-hasfiles="0" data-headers='{"Content-Type":"application\/json","Accept":"application\/json"}' onsubmit="event.preventDefault(); executeTryOut('DELETEapi-todo--id-', this);">
+<h3>
+    Request&nbsp;&nbsp;&nbsp;
+        <button type="button" style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;" id="btn-tryout-DELETEapi-todo--id-" onclick="tryItOut('DELETEapi-todo--id-');">Try it out ⚡</button>
+    <button type="button" style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;" id="btn-canceltryout-DELETEapi-todo--id-" onclick="cancelTryOut('DELETEapi-todo--id-');" hidden>Cancel</button>&nbsp;&nbsp;
+    <button type="submit" style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;" id="btn-executetryout-DELETEapi-todo--id-" hidden>Send Request 💥</button>
+    </h3>
+<p>
+<small class="badge badge-red">DELETE</small>
+ <b><code>api/todo/{id}</code></b>
+</p>
+<h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+<p>
+<b><code>id</code></b>&nbsp;&nbsp;<small>string</small>  &nbsp;
+<input type="text" name="id" data-endpoint="DELETEapi-todo--id-" data-component="url" required  hidden>
+<br>
+</p>
+</form>
+
+
+## todoを更新する
+
+
+更新画面にて入力した情報をDBに登録する機能
+
+> Example request:
+
+```bash
+curl -X PATCH \
+    "http://localhost:8000/api/todo/17" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"title":"necessitatibus","note":"unde","complete_todo":true}'
+
+```
+
+```javascript
+const url = new URL(
+    "http://localhost:8000/api/todo/17"
+);
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "title": "necessitatibus",
+    "note": "unde",
+    "complete_todo": true
+}
+
+fetch(url, {
+    method: "PATCH",
+    headers,
+    body: JSON.stringify(body),
+}).then(response => response.json());
+```
+
+
+> Example response (200):
+
+```json
+
+"id": 3
+```
+<div id="execution-results-PATCHapi-todo--id-" hidden>
+    <blockquote>Received response<span id="execution-response-status-PATCHapi-todo--id-"></span>:</blockquote>
+    <pre class="json"><code id="execution-response-content-PATCHapi-todo--id-"></code></pre>
+</div>
+<div id="execution-error-PATCHapi-todo--id-" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-PATCHapi-todo--id-"></code></pre>
+</div>
+<form id="form-PATCHapi-todo--id-" data-method="PATCH" data-path="api/todo/{id}" data-authed="0" data-hasfiles="0" data-headers='{"Content-Type":"application\/json","Accept":"application\/json"}' onsubmit="event.preventDefault(); executeTryOut('PATCHapi-todo--id-', this);">
+<h3>
+    Request&nbsp;&nbsp;&nbsp;
+        <button type="button" style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;" id="btn-tryout-PATCHapi-todo--id-" onclick="tryItOut('PATCHapi-todo--id-');">Try it out ⚡</button>
+    <button type="button" style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;" id="btn-canceltryout-PATCHapi-todo--id-" onclick="cancelTryOut('PATCHapi-todo--id-');" hidden>Cancel</button>&nbsp;&nbsp;
+    <button type="submit" style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;" id="btn-executetryout-PATCHapi-todo--id-" hidden>Send Request 💥</button>
+    </h3>
+<p>
+<small class="badge badge-purple">PATCH</small>
+ <b><code>api/todo/{id}</code></b>
+</p>
+<h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+<p>
+<b><code>id</code></b>&nbsp;&nbsp;<small>integer</small>  &nbsp;
+<input type="number" name="id" data-endpoint="PATCHapi-todo--id-" data-component="url" required  hidden>
+<br>
+</p>
+<h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
+<p>
+<b><code>title</code></b>&nbsp;&nbsp;<small>string</small>  &nbsp;
+<input type="text" name="title" data-endpoint="PATCHapi-todo--id-" data-component="body" required  hidden>
+<br>
+Title of todo.</p>
+<p>
+<b><code>note</code></b>&nbsp;&nbsp;<small>string</small>     <i>optional</i> &nbsp;
+<input type="text" name="note" data-endpoint="PATCHapi-todo--id-" data-component="body"  hidden>
+<br>
+</p>
+<p>
+<b><code>complete_todo</code></b>&nbsp;&nbsp;<small>boolean</small>     <i>optional</i> &nbsp;
+<label data-endpoint="PATCHapi-todo--id-" hidden><input type="radio" name="complete_todo" value="true" data-endpoint="PATCHapi-todo--id-" data-component="body" ><code>true</code></label>
+<label data-endpoint="PATCHapi-todo--id-" hidden><input type="radio" name="complete_todo" value="false" data-endpoint="PATCHapi-todo--id-" data-component="body" ><code>false</code></label>
 <br>
 </p>
 
@@ -143,14 +296,14 @@ fetch(url, {
 
 ```bash
 curl -X GET \
-    -G "http://localhost/login" \
+    -G "http://localhost:8000/login" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json"
 ```
 
 ```javascript
 const url = new URL(
-    "http://localhost/login"
+    "http://localhost:8000/login"
 );
 
 let headers = {
@@ -177,25 +330,25 @@ fetch(url, {
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- CSRF Token -->
-    <meta name="csrf-token" content="UPwa61i1GyAFw6fCvDAIaAQ69Z21KiIE5SvUtqlj">
+    <meta name="csrf-token" content="NwvzyuAuOBxby3tdgYsqCyHdCrInjTHphXIPkxOU">
 
     <title>Laravel</title>
 
     <!-- Scripts -->
-    <script src="http://localhost/js/app.js" defer></script>
+    <script src="http://localhost:8000/js/app.js" defer></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
     <!-- Styles -->
-    <link href="http://localhost/css/app.css" rel="stylesheet">
+    <link href="http://localhost:8000/css/app.css" rel="stylesheet">
 </head>
 <body>
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
-                <a class="navbar-brand" href="http://localhost">
+                <a class="navbar-brand" href="http://localhost:8000">
                     Laravel
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -212,11 +365,11 @@ fetch(url, {
                     <ul class="navbar-nav ml-auto">
                         <!-- Authentication Links -->
                                                                                     <li class="nav-item">
-                                    <a class="nav-link" href="http://localhost/login">Login</a>
+                                    <a class="nav-link" href="http://localhost:8000/login">Login</a>
                                 </li>
                                                         
                                                             <li class="nav-item">
-                                    <a class="nav-link" href="http://localhost/register">Register</a>
+                                    <a class="nav-link" href="http://localhost:8000/register">Register</a>
                                 </li>
                                                                         </ul>
                 </div>
@@ -231,8 +384,8 @@ fetch(url, {
                 <div class="card-header">Login</div>
 
                 <div class="card-body">
-                    <form method="POST" action="http://localhost/login">
-                        <input type="hidden" name="_token" value="UPwa61i1GyAFw6fCvDAIaAQ69Z21KiIE5SvUtqlj">
+                    <form method="POST" action="http://localhost:8000/login">
+                        <input type="hidden" name="_token" value="NwvzyuAuOBxby3tdgYsqCyHdCrInjTHphXIPkxOU">
                         <div class="form-group row">
                             <label for="email" class="col-md-4 col-form-label text-md-right">E-Mail Address</label>
 
@@ -269,7 +422,7 @@ fetch(url, {
                                     Login
                                 </button>
 
-                                                                    <a class="btn btn-link" href="http://localhost/password/reset">
+                                                                    <a class="btn btn-link" href="http://localhost:8000/password/reset">
                                         Forgot Your Password?
                                     </a>
                                                             </div>
@@ -317,14 +470,14 @@ fetch(url, {
 
 ```bash
 curl -X POST \
-    "http://localhost/login" \
+    "http://localhost:8000/login" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json"
 ```
 
 ```javascript
 const url = new URL(
-    "http://localhost/login"
+    "http://localhost:8000/login"
 );
 
 let headers = {
@@ -371,14 +524,14 @@ fetch(url, {
 
 ```bash
 curl -X POST \
-    "http://localhost/logout" \
+    "http://localhost:8000/logout" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json"
 ```
 
 ```javascript
 const url = new URL(
-    "http://localhost/logout"
+    "http://localhost:8000/logout"
 );
 
 let headers = {
@@ -425,14 +578,14 @@ fetch(url, {
 
 ```bash
 curl -X GET \
-    -G "http://localhost/register" \
+    -G "http://localhost:8000/register" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json"
 ```
 
 ```javascript
 const url = new URL(
-    "http://localhost/register"
+    "http://localhost:8000/register"
 );
 
 let headers = {
@@ -459,25 +612,25 @@ fetch(url, {
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- CSRF Token -->
-    <meta name="csrf-token" content="UPwa61i1GyAFw6fCvDAIaAQ69Z21KiIE5SvUtqlj">
+    <meta name="csrf-token" content="NwvzyuAuOBxby3tdgYsqCyHdCrInjTHphXIPkxOU">
 
     <title>Laravel</title>
 
     <!-- Scripts -->
-    <script src="http://localhost/js/app.js" defer></script>
+    <script src="http://localhost:8000/js/app.js" defer></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
     <!-- Styles -->
-    <link href="http://localhost/css/app.css" rel="stylesheet">
+    <link href="http://localhost:8000/css/app.css" rel="stylesheet">
 </head>
 <body>
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
-                <a class="navbar-brand" href="http://localhost">
+                <a class="navbar-brand" href="http://localhost:8000">
                     Laravel
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -494,11 +647,11 @@ fetch(url, {
                     <ul class="navbar-nav ml-auto">
                         <!-- Authentication Links -->
                                                                                     <li class="nav-item">
-                                    <a class="nav-link" href="http://localhost/login">Login</a>
+                                    <a class="nav-link" href="http://localhost:8000/login">Login</a>
                                 </li>
                                                         
                                                             <li class="nav-item">
-                                    <a class="nav-link" href="http://localhost/register">Register</a>
+                                    <a class="nav-link" href="http://localhost:8000/register">Register</a>
                                 </li>
                                                                         </ul>
                 </div>
@@ -513,8 +666,8 @@ fetch(url, {
                 <div class="card-header">Register</div>
 
                 <div class="card-body">
-                    <form method="POST" action="http://localhost/register">
-                        <input type="hidden" name="_token" value="UPwa61i1GyAFw6fCvDAIaAQ69Z21KiIE5SvUtqlj">
+                    <form method="POST" action="http://localhost:8000/register">
+                        <input type="hidden" name="_token" value="NwvzyuAuOBxby3tdgYsqCyHdCrInjTHphXIPkxOU">
                         <div class="form-group row">
                             <label for="name" class="col-md-4 col-form-label text-md-right">Name</label>
 
@@ -600,14 +753,14 @@ fetch(url, {
 
 ```bash
 curl -X POST \
-    "http://localhost/register" \
+    "http://localhost:8000/register" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json"
 ```
 
 ```javascript
 const url = new URL(
-    "http://localhost/register"
+    "http://localhost:8000/register"
 );
 
 let headers = {
@@ -654,14 +807,14 @@ fetch(url, {
 
 ```bash
 curl -X GET \
-    -G "http://localhost/password/reset" \
+    -G "http://localhost:8000/password/reset" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json"
 ```
 
 ```javascript
 const url = new URL(
-    "http://localhost/password/reset"
+    "http://localhost:8000/password/reset"
 );
 
 let headers = {
@@ -688,25 +841,25 @@ fetch(url, {
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- CSRF Token -->
-    <meta name="csrf-token" content="UPwa61i1GyAFw6fCvDAIaAQ69Z21KiIE5SvUtqlj">
+    <meta name="csrf-token" content="NwvzyuAuOBxby3tdgYsqCyHdCrInjTHphXIPkxOU">
 
     <title>Laravel</title>
 
     <!-- Scripts -->
-    <script src="http://localhost/js/app.js" defer></script>
+    <script src="http://localhost:8000/js/app.js" defer></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
     <!-- Styles -->
-    <link href="http://localhost/css/app.css" rel="stylesheet">
+    <link href="http://localhost:8000/css/app.css" rel="stylesheet">
 </head>
 <body>
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
-                <a class="navbar-brand" href="http://localhost">
+                <a class="navbar-brand" href="http://localhost:8000">
                     Laravel
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -723,11 +876,11 @@ fetch(url, {
                     <ul class="navbar-nav ml-auto">
                         <!-- Authentication Links -->
                                                                                     <li class="nav-item">
-                                    <a class="nav-link" href="http://localhost/login">Login</a>
+                                    <a class="nav-link" href="http://localhost:8000/login">Login</a>
                                 </li>
                                                         
                                                             <li class="nav-item">
-                                    <a class="nav-link" href="http://localhost/register">Register</a>
+                                    <a class="nav-link" href="http://localhost:8000/register">Register</a>
                                 </li>
                                                                         </ul>
                 </div>
@@ -743,8 +896,8 @@ fetch(url, {
 
                 <div class="card-body">
                     
-                    <form method="POST" action="http://localhost/password/email">
-                        <input type="hidden" name="_token" value="UPwa61i1GyAFw6fCvDAIaAQ69Z21KiIE5SvUtqlj">
+                    <form method="POST" action="http://localhost:8000/password/email">
+                        <input type="hidden" name="_token" value="NwvzyuAuOBxby3tdgYsqCyHdCrInjTHphXIPkxOU">
                         <div class="form-group row">
                             <label for="email" class="col-md-4 col-form-label text-md-right">E-Mail Address</label>
 
@@ -804,14 +957,14 @@ fetch(url, {
 
 ```bash
 curl -X POST \
-    "http://localhost/password/email" \
+    "http://localhost:8000/password/email" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json"
 ```
 
 ```javascript
 const url = new URL(
-    "http://localhost/password/email"
+    "http://localhost:8000/password/email"
 );
 
 let headers = {
@@ -858,14 +1011,14 @@ If no token is present, display the link request form.
 
 ```bash
 curl -X GET \
-    -G "http://localhost/password/reset/aliquid" \
+    -G "http://localhost:8000/password/reset/laborum" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json"
 ```
 
 ```javascript
 const url = new URL(
-    "http://localhost/password/reset/aliquid"
+    "http://localhost:8000/password/reset/laborum"
 );
 
 let headers = {
@@ -892,25 +1045,25 @@ fetch(url, {
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- CSRF Token -->
-    <meta name="csrf-token" content="UPwa61i1GyAFw6fCvDAIaAQ69Z21KiIE5SvUtqlj">
+    <meta name="csrf-token" content="NwvzyuAuOBxby3tdgYsqCyHdCrInjTHphXIPkxOU">
 
     <title>Laravel</title>
 
     <!-- Scripts -->
-    <script src="http://localhost/js/app.js" defer></script>
+    <script src="http://localhost:8000/js/app.js" defer></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
     <!-- Styles -->
-    <link href="http://localhost/css/app.css" rel="stylesheet">
+    <link href="http://localhost:8000/css/app.css" rel="stylesheet">
 </head>
 <body>
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
-                <a class="navbar-brand" href="http://localhost">
+                <a class="navbar-brand" href="http://localhost:8000">
                     Laravel
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -927,11 +1080,11 @@ fetch(url, {
                     <ul class="navbar-nav ml-auto">
                         <!-- Authentication Links -->
                                                                                     <li class="nav-item">
-                                    <a class="nav-link" href="http://localhost/login">Login</a>
+                                    <a class="nav-link" href="http://localhost:8000/login">Login</a>
                                 </li>
                                                         
                                                             <li class="nav-item">
-                                    <a class="nav-link" href="http://localhost/register">Register</a>
+                                    <a class="nav-link" href="http://localhost:8000/register">Register</a>
                                 </li>
                                                                         </ul>
                 </div>
@@ -946,9 +1099,9 @@ fetch(url, {
                 <div class="card-header">Reset Password</div>
 
                 <div class="card-body">
-                    <form method="POST" action="http://localhost/password/reset">
-                        <input type="hidden" name="_token" value="UPwa61i1GyAFw6fCvDAIaAQ69Z21KiIE5SvUtqlj">
-                        <input type="hidden" name="token" value="aliquid">
+                    <form method="POST" action="http://localhost:8000/password/reset">
+                        <input type="hidden" name="_token" value="NwvzyuAuOBxby3tdgYsqCyHdCrInjTHphXIPkxOU">
+                        <input type="hidden" name="token" value="laborum">
 
                         <div class="form-group row">
                             <label for="email" class="col-md-4 col-form-label text-md-right">E-Mail Address</label>
@@ -1032,14 +1185,14 @@ fetch(url, {
 
 ```bash
 curl -X POST \
-    "http://localhost/password/reset" \
+    "http://localhost:8000/password/reset" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json"
 ```
 
 ```javascript
 const url = new URL(
-    "http://localhost/password/reset"
+    "http://localhost:8000/password/reset"
 );
 
 let headers = {
@@ -1086,14 +1239,14 @@ fetch(url, {
 
 ```bash
 curl -X GET \
-    -G "http://localhost/password/confirm" \
+    -G "http://localhost:8000/password/confirm" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json"
 ```
 
 ```javascript
 const url = new URL(
-    "http://localhost/password/confirm"
+    "http://localhost:8000/password/confirm"
 );
 
 let headers = {
@@ -1147,14 +1300,14 @@ fetch(url, {
 
 ```bash
 curl -X POST \
-    "http://localhost/password/confirm" \
+    "http://localhost:8000/password/confirm" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json"
 ```
 
 ```javascript
 const url = new URL(
-    "http://localhost/password/confirm"
+    "http://localhost:8000/password/confirm"
 );
 
 let headers = {
@@ -1201,14 +1354,14 @@ fetch(url, {
 
 ```bash
 curl -X GET \
-    -G "http://localhost/home" \
+    -G "http://localhost:8000/home" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json"
 ```
 
 ```javascript
 const url = new URL(
-    "http://localhost/home"
+    "http://localhost:8000/home"
 );
 
 let headers = {
@@ -1235,25 +1388,25 @@ fetch(url, {
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- CSRF Token -->
-    <meta name="csrf-token" content="UPwa61i1GyAFw6fCvDAIaAQ69Z21KiIE5SvUtqlj">
+    <meta name="csrf-token" content="NwvzyuAuOBxby3tdgYsqCyHdCrInjTHphXIPkxOU">
 
     <title>Laravel</title>
 
     <!-- Scripts -->
-    <script src="http://localhost/js/app.js" defer></script>
+    <script src="http://localhost:8000/js/app.js" defer></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
     <!-- Styles -->
-    <link href="http://localhost/css/app.css" rel="stylesheet">
+    <link href="http://localhost:8000/css/app.css" rel="stylesheet">
 </head>
 <body>
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
-                <a class="navbar-brand" href="http://localhost">
+                <a class="navbar-brand" href="http://localhost:8000">
                     Laravel
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -1270,11 +1423,11 @@ fetch(url, {
                     <ul class="navbar-nav ml-auto">
                         <!-- Authentication Links -->
                                                                                     <li class="nav-item">
-                                    <a class="nav-link" href="http://localhost/login">Login</a>
+                                    <a class="nav-link" href="http://localhost:8000/login">Login</a>
                                 </li>
                                                         
                                                             <li class="nav-item">
-                                    <a class="nav-link" href="http://localhost/register">Register</a>
+                                    <a class="nav-link" href="http://localhost:8000/register">Register</a>
                                 </li>
                                                                         </ul>
                 </div>

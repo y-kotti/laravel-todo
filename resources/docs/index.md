@@ -32,12 +32,12 @@ You can switch the language used with the tabs at the top right (or from the nav
 
 <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.10/lodash.min.js"></script>
 <script>
-    var baseUrl = "http://localhost";
+    var baseUrl = "http://localhost:8000";
 </script>
 <script src="js/tryitout-2.3.0.js"></script>
 
 > Base URL
 
 ```yaml
-http://localhost
+http://localhost:8000
 ```
