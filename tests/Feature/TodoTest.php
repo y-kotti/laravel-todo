@@ -17,7 +17,7 @@ class TodoTest extends TestCase
 
         $response = $this->get('/api/todos');
 
-        $response->assertStatus(200);
+        $response->assertStatus(400);
     }
 
     /** @test */
